@@ -306,7 +306,7 @@ In the next two videos the configuration first of the interfaces members of the 
 
 [![GNS3 OpenBSD OpenOSPFD part 3](http://img.youtube.com/vi/OoZxB8zEZ8E/0.jpg)](https://youtu.be/OoZxB8zEZ8E "GNS3 OpenBSD OpenOSPFD part 3")
 
-
+[![GNS3 OpenBSD OpenOSPFD part 4](http://img.youtube.com/vi/Rpnsy0FV6WU/0.jpg)](https://youtu.be/Rpnsy0FV6WU "GNS3 OpenBSD OpenOSPFD part 4")
 
 #### OSPF tools under OpenBSD operative system
 
