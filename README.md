@@ -223,11 +223,24 @@ echo -e "GEO OSPFAREA --> $ospfarea\n"
 - AREA 0.0.3.4 EUROAFRICA
 - AREA 0.0.56 RUCIJAAU that means Asia and Australia basically.
 
+#### Basic router installation
+
+Let's introduce the most minimal installation despite space allocation of our hard disk that is a [NVMe SSD](https://en.wikipedia.org/wiki/NVM_Express) to archive the best performance possible. There is many at low prices available onto web shopping pages.
+
+Look at the video!
+
+​	[![GNS3 OpenBSD OpenOSPFD](http://img.youtube.com/vi/EzcM3zPmjfE/0.jpg)](https://youtu.be/EzcM3zPmjfE "GNS3 OpenBSD OpenOSPFD")
+
+Meanwhile I want to specify to you, reader, that in this installation process I full allocate a [qcow2](https://en.wikipedia.org/wiki/Qcow) disk of 900 mega, installing only those [file sets](https://www.openbsd.org/faq/faq4.html#FilesNeeded):
+
+- `bsd.mp`
+- `base69.tgz`
+
 #### OSPF tools under OpenBSD operative system
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/DijkstraDemo.gif/220px-DijkstraDemo.gif)
 
-*[Dijkstra algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm), the father of OSPF*
+*[Dijkstra algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm), the father of OSPF.*
 
 
 
