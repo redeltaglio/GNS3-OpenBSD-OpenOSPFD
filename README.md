@@ -296,6 +296,8 @@ What I've changed from the first installation? [Elementary my dear Watson](https
 # rm -rf /etc/ssh/ssh_host_*
 ```
 
+#### Type one, clean ethernet and OSPF
+
 
 
 #### OSPF tools under OpenBSD operative system
@@ -306,5 +308,5 @@ What I've changed from the first installation? [Elementary my dear Watson](https
 
 
 
-#### Type one, clean ethernet and OSPF
+#### 
 
