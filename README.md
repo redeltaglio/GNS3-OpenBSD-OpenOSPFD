@@ -135,3 +135,23 @@ root@trimurti:/home/riccardo/Work/telecom.lobby/GNS3-OpenBSD-OpenOSPFD# iptables
 root@trimurti:/home/riccardo/Work/telecom.lobby/GNS3-OpenBSD-OpenOSPFD# 
 ```
 
+If we detect that there's no interface we can create it:
+
+```shell
+riccardo@trimurti:~/Work/telecom.lobby/GNS3-OpenBSD-OpenOSPFD$ sudo nmcli con add ifname virbr4 type bridge con-name virbr4
+Connection 'virbr4' (4edf28e6-107d-4ae7-baff-b4c65e60604b) successfully added.
+riccardo@trimurti:~/Work/telecom.lobby/GNS3-OpenBSD-OpenOSPFD$ nmcli con show | grep virbr4
+virbr4           4edf28e6-107d-4ae7-baff-b4c65e60604b  bridge     virbr4 
+riccardo@trimurti:~/Work/telecom.lobby/GNS3-OpenBSD-OpenOSPFD$ sudo nmcli connection modify virbr4 ipv4.addresses "192.168.133.1/24"
+riccardo@trimurti:~/Work/telecom.lobby/GNS3-OpenBSD-OpenOSPFD$ sudo nmcli connection modify virbr4 ipv4.dns-search "virtual.ama"
+riccardo@trimurti:~/Work/telecom.lobby/GNS3-OpenBSD-OpenOSPFD$ sudo nmcli connection modify virbr4 ipv4.method manual
+riccardo@trimurti:~/Work/telecom.lobby/GNS3-OpenBSD-OpenOSPFD$ ip addr show dev virbr4
+8: virbr4: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+    link/ether b2:72:e4:84:44:8b brd ff:ff:ff:ff:ff:ff
+    inet 192.168.133.1/24 brd 192.168.133.255 scope global noprefixroute virbr4
+       valid_lft forever preferred_lft forever
+riccardo@trimurti:~/Work/telecom.lobby/GNS3-OpenBSD-OpenOSPFD$ 
+```
+
+Using `nmcli` we're launching a shell command that use the [GNOME NetworkManager](https://en.wikipedia.org/wiki/NetworkManager), change will be persistent on reboot. 
+
