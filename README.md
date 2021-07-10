@@ -222,3 +222,14 @@ echo -e "GEO OSPFAREA --> $ospfarea\n"
 - AREA 0.0.1.2 AMERICA
 - AREA 0.0.3.4 EUROAFRICA
 - AREA 0.0.56 RUCIJAAU that means Asia and Australia basically.
+
+#### OSPF tools under OpenBSD operative system
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/DijkstraDemo.gif/220px-DijkstraDemo.gif)
+
+*[Dijkstra algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm), the father of OSPF*
+
+
+
+#### Type one, clean ethernet and OSPF
+
