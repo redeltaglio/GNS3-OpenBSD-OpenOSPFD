@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#https://blog.programster.org/qemu-img-cheatsheet
+
+
 DATE=$(date +%d%m%Y)
 DATE_RELEASE=$(date +"%d/%m/%Y %H:%m:%S")
 HOMEWRK="/home/riccardo/Work/telecom.lobby"
