@@ -193,3 +193,32 @@ Claudio has been writing a presentation of the daemon that implement the protoco
 
 - [Design and implementation of OpenOSPFD](https://github.com/redeltaglio/GNS3-OpenBSD-OpenOSPFD/raw/main/pdf/OpenOSPFD%20-%20Paper.pdf)
 
+The algorithm is very simple obtaining latitude and longitude from the `egress` IPv4 address, is implemented as usual in [KSH 88 shell](https://web.archive.org/web/20151105130220/http://www2.research.att.com/sw/download/man/man1/ksh88.html) script:
+
+```shell
+local=$(ssh -q $vpnc_host.$localdomainname readlink /etc/localtime  | sed "s/\/usr\/share\/zoneinfo\///")
+zonetab=$(ssh -q $vpnc_host.$localdomainname cat /usr/share/zoneinfo/zone.tab | grep $local)
+[[ $zonetab ]] && echo -e "\n$zonetab\n" || echo -e "\n$local\n"
+publicip=$(ssh -q $vpnc_host.$localdomainname ifconfig egress | grep inet |grep -v inet6 | cut -d ' ' -f2)
+curl -s "http://ipinfo.io/$publicip" | sed '/readme/d'
+loc=$(curl -s "http://ipinfo.io/$publicip" | grep loc | awk '{print $2}' | sed 's/.$//' | sed "s/\"//g")
+long=$(echo $loc | cut -d , -f2 | cut -d . -f1)
+lat=$(echo $loc | cut -d , -f1 | cut -d . -f1)
+echo -e "\nLAT --> $lat"
+echo -e "LONG --> $long\n"
+if [[ $long -ge -180 && $long -le -60 && $lat -ge 0 ]]; then group=1 && ospfarea="0.0.0.1"; fi
+if [[ $long -ge -60 && $long -le 60 && $lat -ge 0 ]]; then group=3 && ospfarea="0.0.0.3"; fi
+if [[ $long -ge 60 && $long -le 180 && $lat -ge 0 ]]; then group=5 && ospfarea="0.0.0.5"; fi
+if [[ $long -ge -180 && $long -le -60 && $lat -le 0 ]]; then group=2 && ospfarea="0.0.0.2"; fi
+if [[ $long -ge -60 && $long -le 60 && $lat -le 0 ]]; then group=4 && ospfarea="0.0.0.4"; fi
+if [[ $long -ge 60 && $long -le 180 && $lat -le 0 ]]; then group=6 && ospfarea="0.0.0.6"; fi
+echo -e "GROUP --> $group"
+echo -e "BACKBONE OSPFAREA 0.0.0.0"
+echo -e "GEO OSPFAREA --> $ospfarea\n"
+```
+
+ For simplicity now in this virtual environment I've grouped areas into three groups:
+
+- AREA 0.0.1.2 AMERICA
+- AREA 0.0.3.4 EUROAFRICA
+- AREA 0.0.56 RUCIJAAU that means Asia and Australia basically.
