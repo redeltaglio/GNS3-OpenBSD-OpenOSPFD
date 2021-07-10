@@ -165,3 +165,4 @@ Simply download it.
 
 #### GNS3 network design
 
+![](https://github.com/redeltaglio/GNS3-OpenBSD-OpenOSPFD/raw/main/images/first_layout.jpg)
