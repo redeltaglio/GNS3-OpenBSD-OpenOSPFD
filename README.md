@@ -166,3 +166,30 @@ Simply download it.
 #### GNS3 network design
 
 ![](https://github.com/redeltaglio/GNS3-OpenBSD-OpenOSPFD/raw/main/images/first_layout.jpg)
+
+Using a division by quadrants of the planet earth depending in the geographical position of the VPS routers of our real network  like we're doing in our principle project, here in our virtualized environment we can define three different OSPF areas, concept that is explained by the father of OpenOSPFD, [Claudio Jeker](https://github.com/cjeker), as follow:
+
+> One problem of a link-state protocol is the computation
+> cost bourn by every router, particularly in large net-
+> works. Many routers have an underpowered CPU and so
+> OSPF areas where invented to divide a large network
+> into smaller pieces. Every area is connected to a special
+> backbone area. In most cases inter-area routing goes via
+> the backbone. Routers that are connected to multiple
+> areas are area border routers (ABR) and are always con-
+> nected to the backbone area. If no direct connection to
+> the backbone is possible, a virtual-link has to be estab-
+> lished to at least one backbone router. Areas where no
+> transit trafﬁc is exchanged can be converted into stub
+> areas, reducing the routing table to a bare minimum.
+> Stub areas are useful to connect routers with minimal
+> memory conﬁgurations to large OSPF clouds.
+> LSAs are ﬂooded only inside an area. The ABR has the
+> duty to reﬂood the other areas with special summary-
+> LSAs to inform them of available preﬁxes inside the
+> originating area.
+
+Claudio has been writing a presentation of the daemon that implement the protocol into the OpenBSD kernel and stack:
+
+- [Design and implementation of OpenOSPFD](https://github.com/redeltaglio/GNS3-OpenBSD-OpenOSPFD/raw/main/pdf/OpenOSPFD%20-%20Paper.pdf)
+
