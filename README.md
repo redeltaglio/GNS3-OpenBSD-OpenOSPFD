@@ -78,3 +78,7 @@ riccardo@trimurti:~/Work/telecom.lobby/GNS3-OpenBSD-OpenOSPFD$
 
 *Nothing special at all!*
 
+I've recollected the options that I use in the configuration of the virtual environment, then I will discuss with you, reader, the most important ones:
+
+- [GNS3 OpenBSD OpenOSPFD](https://photos.app.goo.gl/u5yeCtcYSxE6Yn6Q9)
+
