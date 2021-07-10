@@ -155,3 +155,13 @@ riccardo@trimurti:~/Work/telecom.lobby/GNS3-OpenBSD-OpenOSPFD$
 
 Using `nmcli` we're launching a shell command that use the [GNOME NetworkManager](https://en.wikipedia.org/wiki/NetworkManager), change will be persistent on reboot. 
 
+![](https://github.com/redeltaglio/GNS3-OpenBSD-OpenOSPFD/raw/main/images/gns3_options/23.jpg)
+
+Another important feature is the [BIOS](https://en.wikipedia.org/wiki/BIOS) binary used by QEMU, we can find it here:
+
+- [PC-BIOS qemu](https://github.com/qemu/qemu/raw/master/pc-bios/bios.bin).
+
+Simply download it.
+
+#### GNS3 network design
+
