@@ -236,6 +236,68 @@ Meanwhile I want to specify to you, reader, that in this installation process I 
 - `bsd.mp`
 - `base69.tgz`
 
+```shell
+riccardo@trimurti:~/GNS3/projects/openospfd$ find .
+.
+./openospfd.gns3
+./project-files
+./project-files/qemu
+./project-files/qemu/91de3fa3-3998-48d9-ba78-275f0b2689ec
+./project-files/qemu/91de3fa3-3998-48d9-ba78-275f0b2689ec/hdd_disk.qcow2
+./project-files/qemu/91de3fa3-3998-48d9-ba78-275f0b2689ec/hda_disk.qcow2
+./project-files/qemu/91de3fa3-3998-48d9-ba78-275f0b2689ec/qemu-img.log
+./project-files/qemu/91de3fa3-3998-48d9-ba78-275f0b2689ec/qemu.log
+riccardo@trimurti:~/GNS3/projects/openospfd$ 
+```
+
+As you can appreciate there are two important informations in the files created by the software:
+
+- `91de3fa3-3998-48d9-ba78-275f0b2689ec`: the id of the `openbsd-1` virtual router created.
+- `hda_disk.qcow2`: the virtual hard disk of the system
+
+Now we know that this virtual hd is a clear minimal router installation and the only difference by one router to another is the `hostname`. The mac addresses are created by the application. Analyze it with `qemu-img` tool:
+
+```shell
+riccardo@trimurti:~/GNS3/projects/openospfd/project-files/qemu/91de3fa3-3998-48d9-ba78-275f0b2689ec$ qemu-img info hda_disk.qcow2 
+image: hda_disk.qcow2
+file format: qcow2
+virtual size: 900 MiB (943718400 bytes)
+disk size: 484 MiB
+cluster_size: 65536
+backing file: /home/riccardo/GNS3/images/QEMU/openbsd-hda.qcow2
+Format specific information:
+    compat: 1.1
+    compression type: zlib
+    lazy refcounts: false
+    refcount bits: 16
+    corrupt: false
+    extended l2: false
+riccardo@trimurti:~/GNS3/projects/openospfd/project-files/qemu/91de3fa3-3998-48d9-ba78-275f0b2689ec$
+```
+
+As you can see GNS3 trade it like a backing file of another. What we want to archive is that the minimal install is traded as the default disk image. So we can transfer changes to the primary:
+
+```shell
+riccardo@trimurti:~/GNS3/projects/openospfd/project-files/qemu/91de3fa3-3998-48d9-ba78-275f0b2689ec$ qemu-img commit hda_disk.qcow2 
+Image committed.
+riccardo@trimurti:~/GNS3/projects/openospfd/project-files/qemu/91de3fa3-3998-48d9-ba78-275f0b2689ec$ 
+```
+
+One time we've done this simple step we can go ahead building the layout that I have presented before.
+
+[![GNS3 OpenBSD OpenOSPFD part 2](http://img.youtube.com/vi/Xwggn75pqKw/0.jpg)](https://youtu.be/Xwggn75pqKw "GNS3 OpenBSD OpenOSPFD part 2")
+
+What I've changed from the first installation? [Elementary my dear Watson](https://www.youtube.com/watch?v=lag22Hl2RQw):
+
+```shell
+# cat > /etc/myname
+2.virtual.ama
+^D
+# rm -rf /etc/ssh/ssh_host_*
+```
+
+
+
 #### OSPF tools under OpenBSD operative system
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/DijkstraDemo.gif/220px-DijkstraDemo.gif)
