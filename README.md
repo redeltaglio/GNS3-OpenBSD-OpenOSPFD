@@ -227,7 +227,7 @@ echo -e "GEO OSPFAREA --> $ospfarea\n"
 
 Let's introduce the most minimal installation despite space allocation of our hard disk that is a [NVMe SSD](https://en.wikipedia.org/wiki/NVM_Express) to archive the best performance possible. There is many at low prices available onto web shopping pages.
 
-Look at the video!
+Look at the video, using maximum resolution!
 
 ​	[![GNS3 OpenBSD OpenOSPFD](http://img.youtube.com/vi/EzcM3zPmjfE/0.jpg)](https://youtu.be/EzcM3zPmjfE "GNS3 OpenBSD OpenOSPFD")
 
