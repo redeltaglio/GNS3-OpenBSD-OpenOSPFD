@@ -302,7 +302,7 @@ What I've changed from the first installation? [Elementary my dear Watson](https
 
 Let's start a simple layout that will see the OSPF protocol running upon four ethernet network and nothing more. As you can see labels tell us what interface is connected with. Remember that we've not installed the man file set, better saying that we can consult it using another machine. I've got many in my MESH OpenBSD IPSec network!
 
-In the next two videos the configuration first of the `area 0.0.3.4` next the others twos and at least but not last the `backbone` area. 
+In the next two videos the configuration first of the interfaces members of the `area 0.0.3.4` next the others twos and at least but not last the `backbone` area. 
 
 [![GNS3 OpenBSD OpenOSPFD part 3](http://img.youtube.com/vi/OoZxB8zEZ8E/0.jpg)](https://youtu.be/OoZxB8zEZ8E "GNS3 OpenBSD OpenOSPFD part 3")
 
