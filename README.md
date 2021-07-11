@@ -314,7 +314,11 @@ In the next two videos the configuration first of the interfaces members of the 
 
 *[Dijkstra algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm), the father of OSPF.*
 
+Let's start configure in a very basic form OpenOSPFD in our OpenBSD routers. For now we will configure the four areas and let the interfaces become part of. We will not touch default values of the daemon. Remember that we've got to configure a unique `router-id` for every one.
+
+See this simple video, (with some errors dude I'm not perfect!), it's about the clearest possible configuration of router 1, 2 and 5:
+
+[![GNS3 OpenBSD OpenOSPFD part 5](http://img.youtube.com/vi/QjRulRUN-l8/0.jpg)](https://youtu.be/QjRulRUN-l8 "GNS3 OpenBSD OpenOSPFD part 5")
 
 
-#### 
 
