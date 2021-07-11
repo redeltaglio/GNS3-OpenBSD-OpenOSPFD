@@ -336,7 +336,82 @@ OSPF is defined in various [RFC](https://en.wikipedia.org/wiki/Request_for_Comme
 
 OSPF runs on top of IP using `protocol 89` for IPv4. Use two [multicast](https://en.wikipedia.org/wiki/Multicast) address `224.0.0.5` `AllSPFRouters` and `224.0.0.6` `AllDRRouters`, all routers discover each other with a hello mechanism sent to `AllSPFRouters` in the same broadcast domain obviously that when is received provoke comparison of configuration parameters that is agree form an adjacency and become neighbors then they advertise themselves and their connectivity in Link State Advertisements `LSAs` to their neighbors. All `LSAs` received minus where they received from is flooded to the others neighbors, with a reliable flooding mechanism. Every `LSA` must be acknowledged through a specif package or by seeing the `LSAs ID` that was sent in another update from neighbor the `LSA` was sent to. `LSA ACK` can be send direct by an unicast or delayed if we've got received some and ack with a single. `LSA` got a timer and when it pass they are aged and must be periodically refreshed, routers use `LSA` to construct the Link State Database `LSDB`, that contains topology information for the entire routing domain, used to calculate paths to every other node using Dijkstra's Shortest Path Algorithm. The routing domain into smaller regions known as areas, and can summarize routing information between areas to cut down on the size of the `LSDB` and the routing tables , each area has it's own `LSDB`. Makes use of a two level hierarchy creating a simple [hub and spoke topology](https://networklessons.com/tag/hub-and-spoke). Top level of the hierarchy is known as `backbone` area `0.0.0.0`. All areas are connected directly to the backbone. There are mechanisms to allow tunneling of routing information to get around this restriction.
 
-So `LSAs` are recollected into a database known as `LSDB` that is a model of the topology of the network.
+So `LSAs` are recollected into a database known as `LSDB` that is a model of the topology of the network. It contains tuples of the node's router id, neighbors router id, and a cost to that neighbor; the router runs SPF algorithm on the `LSDB` every the `LSDB` changes.
+
+`LSDB` can be viewed under OpenBSD with those commands:
+
+```shell
+8# ospfctl show database summary
+
+                Summary Net Link States (Area 0.0.5.6)
+
+LS age: 149
+Options: -|-|-|-|-|-|E|-
+LS Type: Summary (Network)
+Link State ID: 192.168.0.0 (Network ID)
+Advertising Router: 1.1.1.7
+LS Seq Number: 0x80000001
+Checksum: 0xdb04
+Length: 28
+LS age: 149
+Options: -|-|-|-|-|-|E|-
+LS Type: Summary (Network)
+Link State ID: 192.168.1.0 (Network ID)
+Advertising Router: 1.1.1.7
+LS Seq Number: 0x80000001
+Checksum: 0x359f
+Length: 28
+LS age: 149
+Options: -|-|-|-|-|-|E|-
+LS Type: Summary (Network)
+Link State ID: 192.168.3.0 (Network ID)
+Advertising Router: 1.1.1.7
+LS Seq Number: 0x80000001
+Checksum: 0x1fb3
+Length: 28
+8# 
+
+8# ospfctl show database  
+
+                Router Link States (Area 0.0.5.6)
+
+Link ID         Adv Router      Age  Seq#       Checksum
+1.1.1.7         1.1.1.7         24   0x80000003 0x143d
+1.1.1.8         1.1.1.8         23   0x80000002 0x054d
+
+                Net Link States (Area 0.0.5.6)
+
+Link ID         Adv Router      Age  Seq#       Checksum
+192.168.5.2     1.1.1.8         23   0x80000001 0x2f9a
+
+                Summary Net Link States (Area 0.0.5.6)
+
+Link ID         Adv Router      Age  Seq#       Checksum
+192.168.0.0     1.1.1.7         48   0x80000001 0xdb04
+192.168.1.0     1.1.1.7         48   0x80000001 0x359f
+192.168.3.0     1.1.1.7         48   0x80000001 0x1fb3
+
+                Summary Router Link States (Area 0.0.5.6)
+
+Link ID         Adv Router      Age  Seq#       Checksum
+1.1.1.1         1.1.1.7         48   0x80000001 0x51f2
+
+                Type-5 AS External Link States
+
+Link ID         Adv Router      Age  Seq#       Checksum
+0.0.0.0         1.1.1.8         69   0x80000001 0x9769
+8# 
 
 
+```
+
+To show interfaces that participate to the OSPF area:
+
+```shell
+8# ospfctl show interfaces                                                                 
+Interface   Address            State  HelloTimer Linkstate  Uptime    nc  ac
+vio1        192.168.122.25/24  DOWN   -          active     00:00:00   0   0
+vio0        192.168.5.2/24     DR     00:00:06   active     00:07:59   1   1
+8# 
+```
 
