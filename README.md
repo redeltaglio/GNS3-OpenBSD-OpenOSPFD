@@ -320,5 +320,21 @@ See this simple video, (with some errors dude I'm not perfect!), it's about the 
 
 [![GNS3 OpenBSD OpenOSPFD part 5](http://img.youtube.com/vi/QjRulRUN-l8/0.jpg)](https://youtu.be/QjRulRUN-l8 "GNS3 OpenBSD OpenOSPFD part 5")
 
+Following the article "[OSPF Deep Dive](https://www.blackhole-networks.com/OSPF/)" we are going to understand some bases and some command about the IGP protocol under the OpenBSD environment.
+
+So we remind to you, reader, that in effect it is an IGP that route IP within a single [routing domain](https://en.wikipedia.org/wiki/Routing_domain), in my case in development it is the virtualized layout of GNS3 with local domain name `virtual.ama` and in production the OpenBSD VPS hosts interconnected by IPSec that reply to the local domain name `telecom.lobby`.  Each router gathers link state information and build a complete network topology for the entire routing domain. From the evolution necessary to the [RIP protocol](https://en.wikipedia.org/wiki/Routing_Information_Protocol) two types of IGP was developed:
+
+- [Distance vector](https://en.wikipedia.org/wiki/Distance-vector_routing_protocol)
+- [Link State](https://en.wikipedia.org/wiki/Link-state_routing_protocol)
+
+OSPF is defined in various [RFC](https://en.wikipedia.org/wiki/Request_for_Comments):
+
+- [RFC 2328](http://tools.ietf.org/html/rfc2328)
+- [RFC 3101](https://datatracker.ietf.org/doc/html/rfc3101)
+- [RFC 3630](https://datatracker.ietf.org/doc/html/rfc3630)
+- [RFC 3623](https://datatracker.ietf.org/doc/html/rfc3623)
+
+OSPF runs on top of IP using `protocol 89` for IPv4. Use two [multicast](https://en.wikipedia.org/wiki/Multicast) address `224.0.0.5` `AllSPFRouters` and `224.0.0.6` `AllDRRouters`, all routers discover each other with a hello mechanism sent to `AllSPFRouters` in the same broadcast domain obviously that when is received provoke comparison of configuration parameters that is agree form an adjacency and become neighbors then they advertise themselves and their connectivity in Link State Advertisements `LSAs` to their neighbors. All `LSAs` received minus where they received from is flooded to the others neighbors, with a reliable flooding mechanism. Every `LSA` must be acknowledged through a specif package or by seeing the `LSAs ID` that was sent in another update from neighbor the `LSA` was sent to. `LSA ACK` can be send direct by an unicast or delayed if we've got received some and ack with a single. `LSA` got a timer and when it pass they are aged and must be periodically refreshed, routers use `LSA` to construct the Link State Database `LSDB`.
+
 
 
