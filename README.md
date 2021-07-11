@@ -415,3 +415,37 @@ vio0        192.168.5.2/24     DR     00:00:06   active     00:07:59   1   1
 8# 
 ```
 
+Show FIB and RIB, remembering that:
+
+> The forwarding information base (FIB) is the actual information that a routing/switching device uses to choose the interface that a given packet will use for egress. For example, the FIB might be programmed such that a packet bound to a destination in 192.168.1.0/24 should be sent out of physical port ethernet1/2. There may actually be multiple FIB's on a device for unicast forwarding vs multicast RPF checking, different protocols (ip vs mpls vs ipv6) but the basic function is the same - selection criteria (usually destination) mapping to output interface/encapsulation. Individual FIB's may also be partitioned to achieve concurrent independent forwarding tables (i.e. vrf's).
+>
+> Each FIB is programmed by one or more routing information bases (RIB). The RIB is a selection of routing information learned via static definition or a dynamic routing protocol. The algorithms used within various RIB's will vary - so, for example, the means by which BGP or OSPF determines potential best paths vary quite a bit. The means by which multiple RIB's are programmed into a common (set) of FIB's in a box will vary by implementation but this is where concepts like administrative distance are used (e.g. identical paths are learned via eBGP and OSPF, the eBGP is usually preferred for FIB injection). Again, RIB's may also be potentially partitioned to allow for multiple vrf's, etc.
+
+```shell
+8# ospfctl show fib                                                                                                                                                                 
+flags: * = valid, O = OSPF, C = Connected, S = Static
+Flags  Prio Destination          Nexthop          
+*S        8 0.0.0.0/0            192.168.122.1
+*C        4 1.1.1.8/32           1.1.1.8
+*C        0 127.0.0.0/8          link#0
+*S        8 127.0.0.0/8          127.0.0.1
+*         1 127.0.0.1/32         127.0.0.1
+*O       32 192.168.0.0/24       192.168.5.1
+*O       32 192.168.1.0/24       192.168.5.1
+*O       32 192.168.3.0/24       192.168.5.1
+*C        4 192.168.5.0/24       192.168.5.2
+*C        4 192.168.122.0/24     192.168.122.25
+*S        8 224.0.0.0/4          127.0.0.1
+8# ospfctl show rib 
+Destination          Nexthop           Path Type    Type      Cost    Uptime  
+1.1.1.1              192.168.5.1       Inter-Area   Router    20      00:31:08
+1.1.1.7              192.168.5.1       Intra-Area   Router    10      00:31:08
+1.1.1.8              0.0.0.0         C Intra-Area   Router    0       00:31:59
+192.168.0.0/24       192.168.5.1       Inter-Area   Network   20      00:31:08
+192.168.1.0/24       192.168.5.1       Inter-Area   Network   30      00:31:08
+192.168.3.0/24       192.168.5.1       Inter-Area   Network   30      00:31:08
+192.168.5.0/24       192.168.5.2     C Intra-Area   Network   10      00:31:13
+192.168.122.0/24     0.0.0.0         C Intra-Area   Network   10      00:31:59
+8# 
+```
+
