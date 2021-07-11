@@ -320,5 +320,21 @@ See this simple video, (with some errors dude I'm not perfect!), it's about the 
 
 [![GNS3 OpenBSD OpenOSPFD part 5](http://img.youtube.com/vi/QjRulRUN-l8/0.jpg)](https://youtu.be/QjRulRUN-l8 "GNS3 OpenBSD OpenOSPFD part 5")
 
+Following the article "[OSPF Deep Dive](https://www.blackhole-networks.com/OSPF/)" we are going to understand some bases and some command about the IGP protocol under the OpenBSD environment.
+
+So we remind to you, reader, that in effect it is an IGP that route IP within a single [routing domain](https://en.wikipedia.org/wiki/Routing_domain), in my case in development it is the virtualized layout of GNS3 with local domain name `virtual.ama` and in production the OpenBSD VPS hosts interconnected by IPSec that reply to the local domain name `telecom.lobby`.  Each router gathers link state information and build a complete network topology for the entire routing domain. From the evolution necessary to the [RIP protocol](https://en.wikipedia.org/wiki/Routing_Information_Protocol) two types of IGP was developed:
+
+- [Distance vector](https://en.wikipedia.org/wiki/Distance-vector_routing_protocol)
+- [Link State](https://en.wikipedia.org/wiki/Link-state_routing_protocol)
+
+OSPF is defined in various [RFC](https://en.wikipedia.org/wiki/Request_for_Comments):
+
+- [RFC 2328](http://tools.ietf.org/html/rfc2328)
+- [RFC 3101](https://datatracker.ietf.org/doc/html/rfc3101)
+- [RFC 3630](https://datatracker.ietf.org/doc/html/rfc3630)
+- [RFC 3623](https://datatracker.ietf.org/doc/html/rfc3623)
+
+OSPF runs on top of IP using `protocol 89` for IPv4.
+
 
 
