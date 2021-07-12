@@ -507,3 +507,6 @@ area 0.0.1.2 {
 5# 
 ```
 
+As you can see we have add a `NAT` cloud that reply to `192.168.122.0/24` and got a dhcp server and a dns forwarding system. 
+
+From the router `8` we want to forward to all areas the default route.
