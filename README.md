@@ -449,3 +449,5 @@ Destination          Nexthop           Path Type    Type      Cost    Uptime
 8# 
 ```
 
+#### OpenBSD openospfd configuration
+
