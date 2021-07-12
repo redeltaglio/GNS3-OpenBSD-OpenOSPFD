@@ -510,3 +510,11 @@ area 0.0.1.2 {
 As you can see we have add a `NAT` cloud that reply to `192.168.122.0/24` and got a dhcp server and a dns forwarding system. 
 
 From the router `8` we want to forward to all areas the default route.
+
+#### OSPF packets captures
+
+```shell
+8# tcpdump -n -tttt -e -XX -s65535 -i vio0 -w 8.cap 
+```
+
+[![GNS3 OpenBSD OpenOSPFD part 5](http://img.youtube.com/vi/nB4lDDl-DV8/0.jpg)](https://youtu.be/nB4lDDl-DV8 "GNS3 OpenBSD OpenOSPFD part 6")
