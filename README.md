@@ -451,3 +451,47 @@ Destination          Nexthop           Path Type    Type      Cost    Uptime
 
 #### OpenBSD openospfd configuration
 
+![](https://github.com/redeltaglio/GNS3-OpenBSD-OpenOSPFD/raw/main/images/WAN.png)
+
+```shell
+8# cat ospfd.conf                                                              
+router-id 1.1.1.8
+redistribute default
+area 0.0.5.6 {
+	interface vio0
+	interface vio1 {passive}
+}
+8# 
+
+7# cat ospfd.conf                                                              
+
+router-id "1.1.1.7"
+redistribute default
+area 0.0.0.0 {
+	interface vio1
+}
+area 0.0.5.6 {
+	interface vio0
+}
+7# 
+1# cat ospfd.conf                                                              
+router-id "1.1.1.1"
+redistribute default
+area 0.0.0.0 {
+	interface vio1
+
+}
+area 0.0.3.4 {
+	interface vio0
+}
+1#
+3# cat ospfd.conf                                                              
+router-id "1.1.1.3"
+
+area 0.0.3.4 {
+	interface vio0
+}
+3# 
+
+```
+
